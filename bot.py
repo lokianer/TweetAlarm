@@ -28,7 +28,7 @@ class MyClient(discord.Client):
         global latest_tweet
         latest_tweet = tweets[0]
 
-        channel = client.get_channel() # Replace with the ID of the channel you want to send the message to
+        channel = client.get_channel(1058776614680416266) # Replace with the ID of the channel you want to send the message to
         await channel.send('https://twitter.com/twitter/statuses/' + str(latest_tweet.id))
     # A hook that will be called when the bot is ready
     async def setup_hook(self) -> None:
@@ -43,10 +43,13 @@ class MyClient(discord.Client):
 
         global latest_tweet
         if latest_tweet_new != latest_tweet:
-            channel = client.get_channel() 
+            channel = client.get_channel(1058776614680416266) 
+            print('New tweet!')
             await channel.send(latest_tweet_new.text)
 
             latest_tweet = latest_tweet_new
+        else:
+            print('No new tweet')
     @check_tweets.before_loop
     async def before_check_tweets(self):
         await self.wait_until_ready()
